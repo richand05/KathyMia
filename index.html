@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para ti 💙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Handlee', cursive;
+            background: linear-gradient(to bottom right, #cce0ff, #ffe0f0);
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .titulo {
+            font-size: 2rem;
+            color: #4b0082;
+            margin-bottom: 7rem;
+        }
+
+        .galeria {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .stitch-arriba {
+            position: absolute;
+            top: -110px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            z-index: 10;
+        }
+
+        .marco {
+            background: url("imagenes/stitch-marco.png") no-repeat center/contain;
+            padding: 20px;
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1/1;
+            position: relative;
+            z-index: 5;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+        }
+
+        .marco img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .botones {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .botones button {
+            background-color: #7ec8e3;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .botones button:hover {
+            background-color: #559fd6;
+            transform: scale(1.05);
+        }
+
+        .carta-boton {
+            margin-top: 1rem;
+            background-color: #ff9ecb;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+            font-weight: bold;
+            box-shadow: 0 0 10px #ffb6da;
+        }
+
+        .botones-cartayaudio {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .carta {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #fff;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: transform 0.5s ease;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+        }
+
+        .carta.abierta {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .carta h2 {
+            margin-bottom: 1rem;
+            color: #4b0082;
+        }
+
+        .carta p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .cerrar {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        @media screen and (max-width: 480px) {
+            .titulo {
+                font-size: 1.6rem;
+            }
+
+            .marco {
+                max-width: 90%;
+                padding: 10px;
+            }
+
+            .stitch-arriba {
+                width: 140px;
+                top: -80px;
+            }
+        }
+
+        .modal-audio {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 360px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+            z-index: 150;
+            transition: transform 0.4s ease;
+            text-align: center;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+        }
+
+        .modal-audio.abierta {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-audio h2 {
+            color: #4b0082;
+            margin-bottom: 1rem;
+        }
+
+        .modal-audio audio {
+            width: 100%;
+            outline: none;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-audio img {
+            max-width: 120px;
+            margin-top: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <audio id="musicaFondo" loop>
+            <source src="audio/sin_miedo.mp3" type="audio/mp3">
+            Tu navegador no soporta audio HTML5.
+        </audio>
+
+        <h1 class="titulo">Para ti, mi bebita 💙</h1>
+        
+
+
+        <div class="galeria">
+            <img class="stitch-arriba" src="imagenes/stitch-removebg-preview.png" alt="Stitch Apoyado" />
+
+            <div class="marco">
+                <img id="foto" src="imagenes/img1.jpg" alt="Foto juntos" />
+            </div>
+
+            <div class="botones">
+                <button onclick="irPrimera()">⏮</button>
+                <button onclick="cambiarFoto(-1)">⬅️</button>
+                <button onclick="toggleSlideshow()" id="playPauseBtn">▶️</button>
+                <button onclick="cambiarFoto(1)">➡️</button>
+                <button onclick="irUltima()">⏭</button>
+            </div>
+
+            <div class="botones-cartayaudio">
+                <button class="carta-boton" onclick="abrirCarta()">Con mucho amor</button>
+                <button class="carta-boton" onclick="abrirAudio()">La mejor voz</button>
+            </div>
+            <button class="carta-boton" onclick="toggleMusica()" id="botonMusica">▶️ Música</button>
+        </div>
+    </div>
+
+    <!-- Modal Carta -->
+    <div id="modalCarta" class="carta" role="dialog" aria-modal="true" aria-labelledby="tituloCarta" tabindex="-1">
+        <button class="cerrar" aria-label="Cerrar carta" onclick="cerrarCarta()">×</button>
+        <h2 id="tituloCarta">Carta para mi princesa 💙</h2>
+        <p>
+            Esta carta es para que, cuando estés lejos, sientas que estoy ahí contigo ❤️. <br />
+            Me dirás, aish carta de nuevo. <br />
+            Quiero que siempre recuerdes que te amo infinitamente, más que a nada en este mundo 🌍. <br />
+            Eres mi persona favorita 💕, la dueña de mi corazón y quiero que sepas que eres el amor de mi vida 💘.<br />
+            Desde el primer día que te conocí, siempre apegado a ti, me siento muy bien... he actuado de muchas formas,
+            pero mi corazón siempre ha sido tuyo. <br />
+            No quiero separarme de ti nunca, mientras Dios me lo permita 🙏. <br />
+            Kathy, siempre tú... Quiero cuidarte, protegerte, abrazarte cuando lo necesites 🤗. <br />
+            Sé que tengo que trabajar para ello, porque eres la mejor mujer que he conocido 💐. <br />
+            Eres fuerte, pero aún así quiero que sepas que cuentas conmigo siempre que lo necesites 💞. <br />
+            Todo va a estar bien, porque a personas como tú, Dios las bendice siempre ✨. <br />
+            Estoy seguro, mi amor, te espera lo mejor... y quiero de verdad luchar para que ese futuro sea a tu lado
+            💪❤️. <br />
+            Gracias por estar conmigo, por ser mi princesa 👑, por cada sonrisa y cada abrazo. <br />
+            <br />
+            Bueno... soy un llorón, no sé por qué, pero recontra llorón, y más cuando se trata de ti 😢. <br />
+            Tienes todos mis sentimientos, no es dependencia, solo que, te juro que te adoro 💖, te quiero tanto y te
+            amo porque eres mi mejor amiga, mi amante, mi todo. <br />
+            Me duele cuando discutimos, porque es como un golpe muy profundo para mi💔. <br />
+            Pero siempre quiero que sepas que mi amor por ti es más fuerte que cualquier dificultad. <br />
+            <br />
+            Siempre tuyo... 🐾💖
+        </p>
+    </div>
+
+    <!-- Modal Audio -->
+    <div id="modalAudio" class="modal-audio" role="dialog" aria-modal="true" aria-labelledby="tituloAudio"
+        tabindex="-1">
+
+        <button class="cerrar" aria-label="Cerrar audio" onclick="cerrarAudio()">×</button>
+        <h2 id="tituloAudio">Con todo mi amor</h2>
+        <audio controls>
+            <source src="audio/audio.m4a" type="audio/mpeg" />
+        </audio>
+        <audio controls>
+            <source src="audio/audio2.m4a" type="audio/mpeg" />
+        </audio>
+        <img src="imagenes/corazon_st.gif" alt="Stitch sonriendo" />
+    </div>
+
+    <script>
+        const imagenes = [
+            "imagenes/img1.jpg",
+            "imagenes/img2.jpg",
+            "imagenes/img3.jpg",
+            "imagenes/img4.jpg",
+            "imagenes/img5.jpg",
+        ];
+        let indice = 0;
+        let slideshowInterval = null;
+
+        const foto = document.getElementById("foto");
+
+        function cambiarFoto(n) {
+            indice += n;
+            if (indice < 0) indice = imagenes.length - 1;
+            else if (indice >= imagenes.length) indice = 0;
+            foto.src = imagenes[indice];
+        }
+
+        function irPrimera() {
+            indice = 0;
+            foto.src = imagenes[indice];
+        }
+
+        function irUltima() {
+            indice = imagenes.length - 1;
+            foto.src = imagenes[indice];
+        }
+
+        function toggleSlideshow() {
+            const btn = document.getElementById("playPauseBtn");
+            if (slideshowInterval) {
+                clearInterval(slideshowInterval);
+                slideshowInterval = null;
+                btn.textContent = "▶️";
+            } else {
+                slideshowInterval = setInterval(() => cambiarFoto(1), 2000);
+                btn.textContent = "⏸";
+            }
+        }
+
+        const modalCarta = document.getElementById("modalCarta");
+
+        function abrirCarta() {
+            modalCarta.classList.add("abierta");
+            modalCarta.focus();
+        }
+
+        function cerrarCarta() {
+            modalCarta.classList.remove("abierta");
+        }
+
+        const modalAudio = document.getElementById("modalAudio");
+
+        function abrirAudio() {
+            modalAudio.classList.add("abierta");
+            modalAudio.focus();
+
+            // Reiniciar todos los audios
+            const audios = modalAudio.querySelectorAll("audio");
+            audios.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        }
+
+        function cerrarAudio() {
+            modalAudio.classList.remove("abierta");
+
+            // Pausar todos los audios
+            const audios = modalAudio.querySelectorAll("audio");
+            audios.forEach(audio => audio.pause());
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                if (modalCarta.classList.contains("abierta")) cerrarCarta();
+                if (modalAudio.classList.contains("abierta")) cerrarAudio();
+            }
+        });
+
+        const musica = document.getElementById("musicaFondo");
+        const botonMusica = document.getElementById("botonMusica");
+        let reproduciendo = false;
+
+        function toggleMusica() {
+            if (!reproduciendo) {
+                musica.play();
+                botonMusica.textContent = "⏸️ Aguarda";
+            } else {
+                musica.pause();
+                botonMusica.textContent = "▶️ Lanzala Dj";
+            }
+            reproduciendo = !reproduciendo;
+        }
+
+        window.addEventListener("load", () => {
+            musica.volume = 0.5;
+        }); 
+    </script>
+</body>
+
+</html>
